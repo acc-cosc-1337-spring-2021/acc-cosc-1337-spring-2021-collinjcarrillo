@@ -17,6 +17,8 @@ int main()
 
 	cout<<"Result: "<<result;
 
+	cout<<"\n";
+
 	int num1 = 4;
 	
 	result = multiply_numbers(num1);
