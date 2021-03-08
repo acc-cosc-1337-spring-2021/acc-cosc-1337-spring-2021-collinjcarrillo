@@ -14,7 +14,7 @@ factorial.  Also, loop continues as long as user wants to.
 int main() 
 {
 	int cont = 1;
-	int number;
+	int number = 0;
 
 	cout << "\nPlease Enter a number between 1 and 10: ";
     cin >> number;
@@ -23,7 +23,7 @@ int main()
 	{
 		
 		
-		while(number<0 || number>10) 
+		while(number<1 || number>10) 
 		{
 			cout << "\nPlease Enter a number between 1 and 10: ";
     		cin >> number;
