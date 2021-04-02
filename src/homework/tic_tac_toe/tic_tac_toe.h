@@ -1,1 +1,5 @@
-//h
+#include <iostream>
+
+int checkwin();
+void board();
+
