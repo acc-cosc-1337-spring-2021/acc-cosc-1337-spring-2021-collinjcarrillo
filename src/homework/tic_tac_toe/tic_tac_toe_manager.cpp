@@ -1,13 +1,15 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <memory>
 #include "tic_tac_toe_manager.h"
+using std::string;
 using namespace std;
 
-void TTTManager::save_game(TicTacToe b)
+void TTTManager::save_game(unique_ptr<TicTacToe> &b)
 {
-    games.push_back(b);
-    update_winner_count(b.get_winner());
+    update_winner_count(b->get_winner());
+    //Could not get push back to work. Main would always crash when the function was called.
 }
 
 ostream & operator<<(ostream &out, const TTTManager &manager)

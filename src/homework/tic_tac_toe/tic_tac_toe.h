@@ -1,7 +1,9 @@
 #ifndef TICTACTOE_H
 #define TICTACTOE_H
 #include <string>
+#include <memory>
 #include <vector>
+#include <iostream>
 using namespace std;
 
 class TicTacToe
@@ -12,25 +14,22 @@ public:
     void mark_board(int position);
     string get_player();
     string get_winner();
-    friend istream & operator >> (istream &in, TicTacToe &t);
-    friend ostream & operator << (ostream &out, const TicTacToe &t);
+    friend istream & operator >> (istream &in, unique_ptr<TicTacToe> &t);
+    friend ostream & operator << (ostream &out, const unique_ptr<TicTacToe> &t);
+    TicTacToe(int size);
+    
 
 private:
     bool check_board_full()
     {
-        int count = 0;
-        for (auto i: pegs)
+        for (auto i = pegs.begin(); i != pegs.end(); ++i)
         {
-            if(i != " ")
+            if(*i == " ")
             {
-                count += 1;
+                return false;
             }
         }
-        if(count == 9)
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     void clear_board()
@@ -43,7 +42,7 @@ private:
 
     void set_next_player()
     {
-        if(player == "X")
+        if(get_player() == "X")
         {
             player = "O";
         }
@@ -53,68 +52,37 @@ private:
         }
     }
 
-    bool check_column_win()
-    {
-        string last = "X";
-        if(player == "X")
-            last = "O";
-            
-        if(pegs[0] == last && pegs[3] == last && pegs[6] == last)
-            return true;
-            
-        if(pegs[1] == last && pegs[4] == last && pegs[7] == last)
-            return true;
-
-        if(pegs[2] == last && pegs[5] == last && pegs[8] == last)
-            return true;
-
-        return false;
-    }
-
-    bool check_row_win()
-    {
-        string last = "X";
-        if(player == "X")
-        last = "O";
-            
-        if(pegs[0] == last && pegs[1] == last && pegs[2] == last)
-            return true;
-            
-        if(pegs[3] == last && pegs[4] == last && pegs[5] == last)
-            return true;
-
-        if(pegs[6] == last && pegs[7] == last && pegs[8] == last)
-            return true;
-
-        return false;
-    }
-
-    bool check_diagonal_win()
-    {
-        string last = "X";
-        if(player == "X")
-        last = "O";
-
-        if(pegs[0] == last && pegs[4] == last && pegs[8] == last)
-            return true;
-            
-        if(pegs[2] == last && pegs[4] == last && pegs[6] == last)
-            return true;
-
-        return false;
-    }
 
     void set_winner()
     {
-        if(player == "X")
+        if(get_player() == "X")
             winner = "O";
         else
             winner = "X";
     }
     
-    vector<string> pegs{9, " "};
+    
     string player;
     string winner;
+    
+    protected:
+
+    virtual bool check_column_win()
+    {
+        return false;
+    }
+
+    virtual bool check_row_win()
+    {
+        return false;
+    }
+
+    virtual bool check_diagonal_win()
+    {
+        return false;
+    }
+
+    vector<string> pegs;
 };
 
 #endif

@@ -3,19 +3,21 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <memory>
 #include "tic_tac_toe.h"
+using std::unique_ptr; using std::make_unique;
 using namespace std;
 
 class TTTManager
 {
 public:
-    void save_game(TicTacToe b);
+    void save_game(unique_ptr<TicTacToe> &b);
     friend ostream & operator<<(ostream &out, const TTTManager &manager);
     void get_winner_total(int& o, int& w, int& t);
     
 
 private:
-    vector<TicTacToe> games;
+    vector<unique_ptr<TicTacToe>> games;
     int x_win = 0;
     int o_win = 0;
     int ties = 0;

@@ -1,6 +1,8 @@
 #include "tic_tac_toe.h"
 #include <iostream>
 #include <vector>
+#include <memory>
+#include <string>
 using std::string;
 using namespace std;
 
@@ -29,6 +31,7 @@ bool TicTacToe::game_over()
 void TicTacToe::start_game(string first_player)
 {
     player = first_player;
+    clear_board();
     
 }
 
@@ -43,36 +46,76 @@ string TicTacToe::get_player()
     return player;
 }
 
-ostream & operator<<(ostream &out, const TicTacToe &t)
+ostream & operator<<(ostream &out, const unique_ptr<TicTacToe> &t)
 {
-    cout << "     |     |     " << endl;
-    cout << "  " << t.pegs[0] << "  |  " << t.pegs[1] << "  |  " << t.pegs[2] << endl;
+    if (t->pegs.size() == 9)
+    {
+        cout << "     |     |     " << endl;
+        cout << "  " << t->pegs[0] << "  |  " << t->pegs[1] << "  |  " << t->pegs[2] << endl;
 
-    cout << "_____|_____|_____" << endl;
-    cout << "     |     |     " << endl;
+        cout << "_____|_____|_____" << endl;
+        cout << "     |     |     " << endl;
 
-    cout << "  " << t.pegs[3] << "  |  " << t.pegs[4] << "  |  " << t.pegs[5] << endl;
+        cout << "  " << t->pegs[3] << "  |  " << t->pegs[4] << "  |  " << t->pegs[5] << endl;
 
-    cout << "_____|_____|_____" << endl;
-    cout << "     |     |     " << endl;
+        cout << "_____|_____|_____" << endl;
+        cout << "     |     |     " << endl;
 
-    cout << "  " << t.pegs[6] << "  |  " << t.pegs[7] << "  |  " << t.pegs[8] << endl;
+        cout << "  " << t->pegs[6] << "  |  " << t->pegs[7] << "  |  " << t->pegs[8] << endl;
 
-    cout << "     |     |     " << endl << endl;
+        cout << "     |     |     " << endl << endl;
+    }
+    else
+    {
+        cout << "     |     |     |     " << endl;
+        cout << "  " << t->pegs[0] << "  |  " << t->pegs[1] << "  |  " << t->pegs[2] << "  |  " << t->pegs[3] << endl;
+
+        cout << "_____|_____|_____|_____" << endl;
+        cout << "     |     |     |     " << endl;
+
+        cout << "  " << t->pegs[4] << "  |  " << t->pegs[5] << "  |  " << t->pegs[6] << "  |  " << t->pegs[7] << endl;
+
+        cout << "_____|_____|_____|_____" << endl;
+        cout << "     |     |     |     " << endl;
+
+        cout << "  " << t->pegs[8] << "  |  " << t->pegs[9] << "  |  " << t->pegs[10] << "  |  " << t->pegs[11] << endl;
+
+        cout << "_____|_____|_____|_____" << endl;
+        cout << "     |     |     |     " << endl;
+
+        cout << "  " << t->pegs[12] << "  |  " << t->pegs[13] << "  |  " << t->pegs[14] << "  |  " << t->pegs[15] << endl;
+
+        cout << "     |     |     |     " << endl << endl;  
+    }
+    return out;
 }
 
-istream & operator>>(istream &in, TicTacToe &t)
+istream & operator>>(istream &in, unique_ptr<TicTacToe> &t)
 {
     int position;
-    cout<< "Please choose a position between 1 and 9: ";
-    cin >> position;
-    t.mark_board(position);
+    if(t->pegs.size() == 9)
+    {
+        cout<< "Please choose a position between 1 and 9: ";
+        cin >> position;
+        t->mark_board(position);
+    }
+    else
+    {
+        cout<< "Please choose a position between 1 and 16: ";
+        cin >> position;
+        t->mark_board(position);
+    }   
+        
+
     return in;
 }
 
 string TicTacToe::get_winner()
 {
-    clear_board();
+    
     return winner;
     
 }
+
+TicTacToe :: TicTacToe(int size):pegs(size*size, " "){};
+
