@@ -117,5 +117,22 @@ string TicTacToe::get_winner()
     
 }
 
-TicTacToe :: TicTacToe(int size):pegs(size*size, " "){};
+vector<string> const TicTacToe::get_pegs()
+{
+    return pegs;
+}
+
+TicTacToe::TicTacToe(vector<string> p, string win)
+{
+    pegs = p;
+    winner = win;
+}
+
+TicTacToe::TicTacToe(int size)
+{
+    size *= size;
+    for (int i=0;i<size;++i) {
+        pegs.push_back(" ");
+    }
+}
 

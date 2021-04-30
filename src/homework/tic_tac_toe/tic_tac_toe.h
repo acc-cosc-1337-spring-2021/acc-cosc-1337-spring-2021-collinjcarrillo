@@ -17,6 +17,8 @@ public:
     friend istream & operator >> (istream &in, unique_ptr<TicTacToe> &t);
     friend ostream & operator << (ostream &out, const unique_ptr<TicTacToe> &t);
     TicTacToe(int size);
+    TicTacToe(vector<string> p, string win);
+    vector<string> const get_pegs();
     
 
 private:

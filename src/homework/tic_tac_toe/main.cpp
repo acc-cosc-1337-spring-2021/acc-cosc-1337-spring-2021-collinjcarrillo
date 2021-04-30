@@ -2,6 +2,7 @@
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
+#include "tic_tac_toe_data.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,7 +10,7 @@ using namespace std;
 
 int main() 
 {
-    TTTManager manager;
+    
     string choice;
     string winner;
     string more = "Y";
@@ -18,6 +19,8 @@ int main()
     int x_win = 0;
     int ties = 0;
     unique_ptr<TicTacToe> match;
+    TicTacToeData data;
+    TTTManager manager = TTTManager(data);
 
     do
     {

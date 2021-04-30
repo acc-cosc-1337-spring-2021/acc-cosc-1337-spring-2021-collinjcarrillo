@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_data.h"
 using std::unique_ptr; using std::make_unique;
 using namespace std;
 
@@ -14,10 +15,14 @@ public:
     void save_game(unique_ptr<TicTacToe> &b);
     friend ostream & operator<<(ostream &out, const TTTManager &manager);
     void get_winner_total(int& o, int& w, int& t);
+    TTTManager() = default;
+    TTTManager(TicTacToeData &d);
+    ~TTTManager();
     
 
 private:
     vector<unique_ptr<TicTacToe>> games;
+    TicTacToeData data;
     int x_win = 0;
     int o_win = 0;
     int ties = 0;

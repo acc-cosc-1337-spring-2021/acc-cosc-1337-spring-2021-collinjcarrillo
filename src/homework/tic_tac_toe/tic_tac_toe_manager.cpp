@@ -6,10 +6,23 @@
 using std::string;
 using namespace std;
 
-void TTTManager::save_game(unique_ptr<TicTacToe> &b)
+void TTTManager::save_game(unique_ptr<TicTacToe>&b)
 {
     update_winner_count(b->get_winner());
-    //Could not get push back to work. Main would always crash when the function was called.
+    games.push_back(std::move(b)); 
+}
+
+TTTManager::~TTTManager()
+{
+    data.save_games(games);
+}
+
+TTTManager::TTTManager(TicTacToeData &d)
+{
+    
+    data = d;
+    games = data.get_games();
+
 }
 
 ostream & operator<<(ostream &out, const TTTManager &manager)
@@ -28,3 +41,5 @@ void TTTManager::get_winner_total(int& o, int& w, int& t)
     w = x_win;
     t = ties;
 }
+
+

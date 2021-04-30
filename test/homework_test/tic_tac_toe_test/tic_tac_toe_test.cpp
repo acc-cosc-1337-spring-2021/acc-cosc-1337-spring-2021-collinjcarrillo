@@ -529,6 +529,8 @@ TEST_CASE("Verify if TTTManager can tally score TTT4")
 	manager.save_game(match);
 	match->get_winner();
 
+
+	unique_ptr<TicTacToe> match2 = make_unique<TicTacToe4>();
 	match->start_game("O");
 	match->mark_board(1);
 	match->mark_board(2);
@@ -541,6 +543,7 @@ TEST_CASE("Verify if TTTManager can tally score TTT4")
 	manager.save_game(match);
 	match->get_winner();
 
+	unique_ptr<TicTacToe> match3 = make_unique<TicTacToe4>();
 	match->start_game(player);
 	match->mark_board(1);
 	match->mark_board(2);
