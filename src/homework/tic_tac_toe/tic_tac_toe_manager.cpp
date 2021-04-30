@@ -9,7 +9,7 @@ using namespace std;
 void TTTManager::save_game(unique_ptr<TicTacToe>&b)
 {
     update_winner_count(b->get_winner());
-    games.push_back(std::move(b)); 
+    //games.push_back(std::move(b)); //still causes crashes
 }
 
 TTTManager::~TTTManager()
